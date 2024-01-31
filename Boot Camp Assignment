@@ -102,21 +102,3 @@ df.groupby(['JobTitle']).mean()['TotalPay']
 
 
 #plot a scatter plot to visualize the relationship.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
