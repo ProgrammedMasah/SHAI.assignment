@@ -49,15 +49,18 @@ print('The Salary Range =  [', df['TotalPay'].min() , ',' , df['TotalPay'].max()
 #Data Cleaning:
 #=============== 
 #Handle missing data by suitable method
+#The 'Notes' &'Status' columns will be deleted because they do not contain any data
 df.drop(['Notes', 'Status'], axis=1, inplace=True)
 
+#If it is not stated whether the employee has Benefits, Overtime Pay, or Other Pay, then these values should be set to zero
 df['OvertimePay'].fillna(0, inplace=True)
 df['OtherPay'].fillna(0, inplace=True)
 df['Benefits'].fillna(0, inplace=True)
-  
-#First case
+
+#The values in this column are calculated based on other values within the same row: BasePay = TotalPay - (OvertimePay + OtherPay)
+#Handling the First Case
 df['BasePay'].fillna(df['TotalPay'] - (df['OvertimePay'] + df['OtherPay']), inplace=True)
-#Second case
+#Handling the Second Case
 #df = df[['Id', 'EmployeeName', 'JobTitle', 'TotalPay', 'BasePay', 'OvertimePay', 'OtherPay', 'Benefits', 'TotalPayBenefits', 'Year', 'Agency']]
 #df['BasePay'].fillna(method = 'pad', inplace=True)
 
