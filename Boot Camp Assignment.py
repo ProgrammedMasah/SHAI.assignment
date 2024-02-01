@@ -60,38 +60,41 @@ df['BasePay'].fillna(df['TotalPay'] - (df['OvertimePay'] + df['OtherPay']), inpl
 #Second case
 #df = df[['Id', 'EmployeeName', 'JobTitle', 'TotalPay', 'BasePay', 'OvertimePay', 'OtherPay', 'Benefits', 'TotalPayBenefits', 'Year', 'Agency']]
 #df['BasePay'].fillna(method = 'pad', inplace=True)
+
+
 #==========================================================
 
 #Basic Data Visualization: 
 #==========================
 #The Distribution of Salaries
-plt.plot(df['Year'],df['TotalPay'])
+plt.plot(df['Year'],df['TotalPay'], color = 'r')
 plt.title('The Distribution of Salaries', fontdict = {'fontname' : 'Constantia', 'fontsize' : 20})
 plt.xticks([2011,2012,2013,2014])
-plt.xlabel('Year', fontdict = {'fontname' : 'Constantia', 'fontsize' : 15})
-plt.ylabel('Salaries', fontdict = {'fontname' : 'Constantia', 'fontsize' : 15})
+plt.xlabel('Year', fontdict = {'fontname' : 'Constantia', 'fontsize' : 15}, color = 'r')
+plt.ylabel('Salaries', fontdict = {'fontname' : 'Constantia', 'fontsize' : 15}, color = 'r')
+plt.show()
 
-
-
+#pie chart to represent the proportion of employees in different departments
+#O_o O_o
 
 #==========================================================
 
 #Grouped Analysis: 
 #==================
 #Group the data by one columns and calculate summary statistics for each group
-df.groupby(['JobTitle']).mean()
-df.groupby(['JobTitle']).median()
-df.groupby(['JobTitle']).mean()
-df.groupby(['JobTitle']).std()
+print(df.groupby(['JobTitle']).mean())
+print(df.groupby(['JobTitle']).median())
+print(df.groupby(['JobTitle']).mean())
+print(df.groupby(['JobTitle']).std())
 
 #Group the data by more columns and calculate summary statistics for each group
-df.groupby(['JobTitle', 'TotalPay']).mean()
-df.groupby(['JobTitle', 'TotalPay']).median()
-df.groupby(['JobTitle', 'TotalPay']).mean()
-df.groupby(['JobTitle', 'TotalPay']).std()
+print(df.groupby(['JobTitle', 'TotalPay']).mean())
+print(df.groupby(['JobTitle', 'TotalPay']).median())
+print(df.groupby(['JobTitle', 'TotalPay']).mean())
+print(df.groupby(['JobTitle', 'TotalPay']).std())
 
 #compare the average salaries across different groups.
-df.groupby(['JobTitle']).mean()['TotalPay']
+print(df.groupby(['JobTitle']).mean()['TotalPay'])
 
 
 #==========================================================
@@ -99,6 +102,22 @@ df.groupby(['JobTitle']).mean()['TotalPay']
 #Simple Correlation Analysis:
 #=============================
 #Identify any correlation between salary and another numerical column
-
+print('Correlation Between Salary & Total Pay Benefits  %6.5f'%(df['TotalPay'].corr(df['TotalPayBenefits'])))
+print('---------------------------------------------------------------')
+print('Correlation Between Salary & Benefits            %6.5f'%(df['TotalPay'].corr(df['Benefits'])))
+print('---------------------------------------------------------------')
+print('Correlation Between Salary & OtherPay            %6.5f'%(df['TotalPay'].corr(df['OtherPay'])))
+print('---------------------------------------------------------------')
+print('Correlation Between Salary & Overtime Pay        %6.5f'%(df['TotalPay'].corr(df['OvertimePay'])))
+print('---------------------------------------------------------------')
+print('Correlation Between Salary & Base Pay            %6.5f'%(df['TotalPay'].corr(df['BasePay'])))
+print('---------------------------------------------------------------')
+print('Correlation Between Salary & Year                %6.5f'%(df['TotalPay'].corr(df['Year'])))
+# => Correlation Between Salary & Total Pay Benefits is the largest
 
 #plot a scatter plot to visualize the relationship.
+plt.scatter(df['TotalPay'], df['TotalPayBenefits'], color = 'purple')
+plt.title('The Distribution of Salaries', fontdict = {'fontname' : 'Constantia', 'fontsize' : 23})
+plt.xlabel('Total Pay', fontdict = {'fontname' : 'Constantia', 'fontsize' : 15}, color = 'purple')
+plt.ylabel('Total Pay Benefits', fontdict = {'fontname' : 'Constantia', 'fontsize' : 15}, color = 'purple')
+plt.show()
