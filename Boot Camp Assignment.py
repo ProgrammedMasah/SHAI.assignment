@@ -78,7 +78,17 @@ plt.ylabel('Salaries', fontdict = {'fontname' : 'Constantia', 'fontsize' : 15}, 
 plt.show()
 
 #pie chart to represent the proportion of employees in different departments
-#O_o O_o
+df['num'] = 1
+x = df.groupby(['JobTitle']).sum()['num']
+total =df.groupby(['JobTitle']).sum()['num'].sum()
+sizes = (x*100)/total
+
+labels =  df.groupby(['JobTitle'])
+
+plt.pie(x , labels=labels, autopct='%1.4f%%', shadow = True, startangle=90)
+
+plt.legend()
+plt.show()
 
 #==========================================================
 
