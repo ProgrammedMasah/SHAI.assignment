@@ -77,17 +77,20 @@ plt.xlabel('Year', fontdict = {'fontname' : 'Constantia', 'fontsize' : 15}, colo
 plt.ylabel('Salaries', fontdict = {'fontname' : 'Constantia', 'fontsize' : 15}, color = 'r')
 plt.show()
 
-#pie chart to represent the proportion of employees in different departments
-df['num'] = 1
-x = df.groupby(['JobTitle']).sum()['num']
-total =df.groupby(['JobTitle']).sum()['num'].sum()
-sizes = (x*100)/total
+#pie chart to represent the proportion of employees in different departments                
+department_counts = (df['JobTitle'].value_counts()* 100 ) / 148654
+p = {}
+other = 0
+for x, y in department_counts.items():
+    if y < 1:
+        other+= y
+    else:
+        p[x] = np.floor(y)
 
-labels =  df.groupby(['JobTitle'])
-
-plt.pie(x , labels=labels, autopct='%1.4f%%', shadow = True, startangle=90)
-
-plt.legend()
+p['Other'] = np.floor(other)
+explode = (2,2,2,2,2,2,2,2,2,2,2,2)
+plt.pie(p.values() , labels=p.keys(), autopct='%1.2f%%', startangle=90, shadow = True, explode = explode)
+plt.legend(loc='lower left')
 plt.show()
 
 #==========================================================
